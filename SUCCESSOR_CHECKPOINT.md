@@ -19,4 +19,5 @@ Run `npm ci`, `npm audit --omit=dev`, `npm run build`, and `npm run deploy:dry-r
 
 Keep this stock. Do not install product integrations except for an explicitly authorized, bounded test phase.
 
-The exact commit identity and completed verification evidence will be recorded here when the initial public baseline is pushed.
+Treat the checked-out \`main\` commit as the exact source identity. Verify it with
+\`git rev-parse HEAD\` and confirm it matches \`origin/main\` before release work.
