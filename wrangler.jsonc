@@ -1,0 +1,14 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "stockstarlight-sandbox-codeworkslabs-dev",
+  "account_id": "b951a1f598b7d38f3c054ffdb5b97030",
+  "compatibility_date": "2026-09-09",
+  "routes": [
+    { "pattern": "stockstarlight.sandbox.codeworkslabs.dev", "custom_domain": true }
+  ],
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "404-page"
+  },
+  "observability": { "enabled": true }
+}
