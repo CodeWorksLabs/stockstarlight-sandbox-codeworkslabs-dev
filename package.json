@@ -16,10 +16,11 @@
   },
   "dependencies": {
     "@astrojs/starlight": "0.42.0",
+    "@codeworkslabs/astro-analytics": "file:vendor/codeworkslabs-astro-analytics-0.1.0-alpha.7.tgz",
     "astro": "7.3.2",
     "sharp": "0.35.4"
   },
   "devDependencies": {
-    "wrangler": "4.130.0"
+    "wrangler": "4.131.1"
   }
 }

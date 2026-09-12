@@ -2,6 +2,7 @@ node_modules/
 dist/
 .astro/
 .wrangler/
+vendor/*.tgz
 
 # Local secrets and environment overrides
 .dev.vars
