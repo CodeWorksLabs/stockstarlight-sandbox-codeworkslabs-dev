@@ -359,3 +359,17 @@ The installed runtime SHA-256 is
 bundle `dist/_astro/page.C00njAER.js` contains the exact Umami script origin and
 Starlight website UUID. The repository is ready for its alpha.9 commit/push and
 Cloudflare Workers Builds deployment.
+
+Repository commit `bc0b51780b84a7af49ee4fde84e62c0bc2172405` was pushed to
+this repository's `main`. GitHub Actions run `34779299089` passed. Cloudflare
+Workers Builds deployed the matching commit successfully as active version
+`2c4dc6f4` at 100% traffic; no local Wrangler deployment was used.
+
+Live Chrome qualification selected Umami on `/analytics/`. The package reported
+Umami `ready`, the explicit `cwl_starlight_journey_continued` event returned
+accepted, and the browser advanced to `/analytics/next/` with a receipt showing
+Umami accepted the event. The self-hosted Umami dashboard independently showed
+one visitor, one visit, two views split between `/analytics/` and
+`/analytics/next/`, plus one `cwl_starlight_journey_continued` event. Alpha.9
+Umami repository deployment and provider-side live qualification are complete
+for this stock Starlight sandbox.
