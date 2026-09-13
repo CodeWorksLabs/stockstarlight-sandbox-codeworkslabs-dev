@@ -10,9 +10,9 @@ permissions:
   contents: read
 
 env:
-  ANALYTICS_REF: v0.1.0-alpha.7
-  ANALYTICS_COMMIT: 454893359f8588a71d35d51d1a5e0d16bf355c63
-  ANALYTICS_TARBALL: codeworkslabs-astro-analytics-0.1.0-alpha.7.tgz
+  ANALYTICS_REF: v0.1.0-alpha.8
+  ANALYTICS_COMMIT: f480c3ce152c49637efcfea6dc38c7577fa28d82
+  ANALYTICS_TARBALL: codeworkslabs-astro-analytics-0.1.0-alpha.8.tgz
 
 jobs:
   verify:

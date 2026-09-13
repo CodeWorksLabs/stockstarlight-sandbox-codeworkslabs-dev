@@ -241,3 +241,29 @@ deployment evidence. Cloudflare version history still ended at the existing
 manual version `64d3e206-5b06-4b95-8e96-d06dc8bf75d3`, so these pushes did not
 deploy or change Cloudflare configuration. The public sandbox remained HTTP
 200.
+
+### Matomo alpha.8 repository candidate — 2026-09-13
+
+Phil authorized the bounded Matomo sandbox integration and repository-driven
+deployment. The site now declares public Analytics for Astro tag
+`v0.1.0-alpha.8`, resolved commit
+`f480c3ce152c49637efcfea6dc38c7577fa28d82`, and exact package version
+`0.1.0-alpha.8`. The local vendor artifact has SHA-256
+`FE5C5FD1F8DFECDD2BF0C233663FE88507A5C9744DD6FE8C98E2D42AD71E0717`;
+the GitHub workflow will pack the same tagged tracked source on Linux.
+
+Matomo is configured with public tracker
+`https://matomo.codeworkslabs.net/matomo.php`, standard sibling script
+`https://matomo.codeworkslabs.net/matomo.js`, site ID `3`, and event category
+`Starlight sandbox`. Existing Fathom, Plausible, and GA4 configuration is
+retained.
+
+The required clean install, complete audit, production-only audit, four-page
+production build, Pagefind, sitemap, image optimization, emitted-runtime
+inspection, Wrangler dry-run, and diff check passed. Both audits reported zero
+vulnerabilities. The build retained only the stock fixture's known nonblocking
+empty-`i18n` and missing `docs -> 404` warnings. The exact lockfile SHA-256 is
+`424D0CE4C013CFAA6D55156BCF665A8F9A691CE377E51D25274CB345659E545D`.
+The emitted Matomo runtime is `dist/_astro/page.DhMdtTf6.js`, SHA-256
+`7964290EE65A8834AB3A10C697BEC2677AA6A1AD01AE692A1CF3AFB6D27CBBA0`.
+No deployment or provider-side receipt is claimed by these local gates.
