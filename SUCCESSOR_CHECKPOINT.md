@@ -230,3 +230,14 @@ Wrangler 4.131.1 dry-run all passed. The production audit found zero
 vulnerabilities. The build retained only the pre-existing nonblocking empty
 `i18n` and missing `docs -> 404` content warnings. This verification performed
 no deployment.
+
+The first pushed workflow run, `34731642107` at commit `363fd11`, correctly
+failed the nonportable tarball-hash gate. Commit `56ef789` replaced that gate
+with annotated-tag plus resolved-commit verification; GitHub Actions run
+`34731828128` then completed successfully. The active workflow contains no
+GitHub App credential reference, fixed tarball hash, or non-dry-run Wrangler
+deployment. No repository push in this correction was used as Cloudflare
+deployment evidence. Cloudflare version history still ended at the existing
+manual version `64d3e206-5b06-4b95-8e96-d06dc8bf75d3`, so these pushes did not
+deploy or change Cloudflare configuration. The public sandbox remained HTTP
+200.
