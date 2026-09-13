@@ -10,10 +10,10 @@ Updated: 2026-09-12
 - Cloudflare Worker configuration: `stockstarlight-sandbox-codeworkslabs-dev`
 - Repository establishment originally preserved source without altering the live Worker; the repository-driven deployment cutover described below is now authorized.
 - The site source is self-contained within this repository root.
-- The prepared repository build pins Analytics for Astro product commit
-  `454893359f8588a71d35d51d1a5e0d16bf355c63`, version `0.1.0-alpha.7`,
-  and exact packed SHA-256
-  `D153E5BE94EB2EAB19400DDEDE9A9FA33EF05DFBE34C0DBF5742B11ACCDC2126`.
+- The prepared repository build pins annotated tag `v0.1.0-alpha.7` and verifies
+  that it resolves to Analytics for Astro product commit
+  `454893359f8588a71d35d51d1a5e0d16bf355c63` before packing version
+  `0.1.0-alpha.7`.
 - The Starlight wrapper uses canonical Fathom sandbox site ID `FRMRGPFB` and
   supplied Plausible site-specific script
   `https://plausible.io/js/pa-CBnNKxrJQtEjbu5PVs0LA.js` with `events: true`;
@@ -210,18 +210,19 @@ secrets; otherwise the repository deployment gate will fail before checkout.
 
 Phil confirmed that Analytics for Astro is developed in public. The private
 pre-RC checkout and direct GitHub Actions deployment plan above is superseded.
-The retained workflow checks out the exact public product commit without a
-GitHub App, packs and hash-verifies the LF-normalized public-checkout alpha.7
-artifact, and runs the
-repository verification and Wrangler dry-run gates. It does not deploy and does
+The retained workflow checks out annotated public tag `v0.1.0-alpha.7` without
+a GitHub App, verifies that it resolves to exact commit `4548933`, packs that
+source on the runner, and runs the repository verification and Wrangler dry-run
+gates. It does not deploy and does
 not require `CWL_BUILD_APP_ID`, `CWL_BUILD_APP_PRIVATE_KEY`, or
 `CLOUDFLARE_API_TOKEN`. Deployment remains with the repository-connected
 Cloudflare build path when this local commit is separately authorized to push.
-The reproducible public-checkout artifact is 34,914 bytes with SHA-256
-`D153E5BE94EB2EAB19400DDEDE9A9FA33EF05DFBE34C0DBF5742B11ACCDC2126`.
-The earlier 34,574-byte `84B98B37...` tarball was packed from a CRLF Windows
-checkout and is retained only as historical local/deployment evidence; it is
-not the repository workflow artifact.
+The fixed tarball-hash gate was removed after the first remote run proved that
+`npm pack` archive bytes varied between the Windows and Linux pack environments
+despite resolving to the same tracked source. The stable workflow identity is
+the annotated tag plus its exact resolved commit; the runner-produced package
+is then used for the clean consumer build. Earlier Windows tarball hashes remain
+historical local/deployment evidence and are not cross-platform identities.
 
 Before push on 2026-09-12, the corrected public-checkout artifact was installed
 locally and the clean install, production audit, four-page Starlight build, and

@@ -10,9 +10,9 @@ permissions:
   contents: read
 
 env:
-  ANALYTICS_REF: 454893359f8588a71d35d51d1a5e0d16bf355c63
+  ANALYTICS_REF: v0.1.0-alpha.7
+  ANALYTICS_COMMIT: 454893359f8588a71d35d51d1a5e0d16bf355c63
   ANALYTICS_TARBALL: codeworkslabs-astro-analytics-0.1.0-alpha.7.tgz
-  ANALYTICS_SHA256: d153e5be94eb2eab19400ddede9a9fa33ef05dfbe34c0dbf5742b11accdc2126
 
 jobs:
   verify:
@@ -20,7 +20,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - name: Verify declared product source identity
-        run: node -e "const m=require('./analytics-source.json'); if(m.ref!==process.env.ANALYTICS_REF||m.tarball!==process.env.ANALYTICS_TARBALL||m.sha256!==process.env.ANALYTICS_SHA256) process.exit(1)"
+        run: node -e "const m=require('./analytics-source.json'); if(m.ref!==process.env.ANALYTICS_REF||m.commit!==process.env.ANALYTICS_COMMIT||m.tarball!==process.env.ANALYTICS_TARBALL) process.exit(1)"
       - name: Check out public product source
         uses: actions/checkout@v7
         with:
@@ -28,6 +28,10 @@ jobs:
           ref: ${{ env.ANALYTICS_REF }}
           path: .analytics-source
           persist-credentials: false
+      - name: Verify resolved public product commit
+        working-directory: .analytics-source
+        shell: bash
+        run: test "$(git rev-parse HEAD)" = "$ANALYTICS_COMMIT"
       - uses: actions/setup-node@v7
         with:
           node-version: 22
@@ -38,9 +42,9 @@ jobs:
         run: |
           mkdir -p "$GITHUB_WORKSPACE/vendor"
           npm pack --pack-destination "$GITHUB_WORKSPACE/vendor"
-      - name: Verify public product artifact
+      - name: Verify public product artifact exists
         shell: bash
-        run: echo "$ANALYTICS_SHA256  vendor/$ANALYTICS_TARBALL" | sha256sum --check --strict
+        run: test -f "vendor/$ANALYTICS_TARBALL"
       - run: npm ci
       - run: npm audit --omit=dev
       - run: npm run build
