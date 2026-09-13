@@ -276,3 +276,9 @@ lockfile. This is the previously documented cross-platform gzip identity issue,
 not a source-content or Matomo failure. The workflow correction refreshes only
 the runner-local package-lock metadata from the exact commit-pinned tarball
 before `npm ci`; the tag and resolved commit remain the stable source identity.
+
+Remote run `34747215373` proved that an ordinary package-lock-only install does
+not refresh an unchanged local-file dependency's integrity. The replacement
+step validates the declared tarball, installed package version, and resolved
+lock path, computes SHA-512 directly over the runner-produced artifact, and
+updates only that lock entry before the clean install.

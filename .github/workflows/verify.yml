@@ -45,8 +45,31 @@ jobs:
       - name: Verify public product artifact exists
         shell: bash
         run: test -f "vendor/$ANALYTICS_TARBALL"
-      - name: Reconcile runner-produced local artifact integrity
-        run: npm install --package-lock-only --ignore-scripts
+      - name: Bind lock integrity to runner-produced artifact
+        shell: bash
+        run: |
+          node --input-type=module <<'NODE'
+          import { createHash } from 'node:crypto';
+          import { readFileSync, writeFileSync } from 'node:fs';
+
+          const manifest = JSON.parse(readFileSync('analytics-source.json', 'utf8'));
+          const lock = JSON.parse(readFileSync('package-lock.json', 'utf8'));
+          const relativeTarball = `vendor/${process.env.ANALYTICS_TARBALL}`;
+          const entry = lock.packages?.['node_modules/@codeworkslabs/astro-analytics'];
+
+          if (
+            manifest.tarball !== process.env.ANALYTICS_TARBALL ||
+            entry?.version !== manifest.version ||
+            entry?.resolved !== `file:${relativeTarball}`
+          ) {
+            throw new Error('The analytics package-lock entry does not match the declared source.');
+          }
+
+          entry.integrity = `sha512-${createHash('sha512')
+            .update(readFileSync(relativeTarball))
+            .digest('base64')}`;
+          writeFileSync('package-lock.json', `${JSON.stringify(lock, null, 2)}\n`);
+          NODE
       - run: npm ci
       - run: npm audit --omit=dev
       - run: npm run build
