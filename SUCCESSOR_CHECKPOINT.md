@@ -267,3 +267,12 @@ empty-`i18n` and missing `docs -> 404` warnings. The exact lockfile SHA-256 is
 The emitted Matomo runtime is `dist/_astro/page.DhMdtTf6.js`, SHA-256
 `7964290EE65A8834AB3A10C697BEC2677AA6A1AD01AE692A1CF3AFB6D27CBBA0`.
 No deployment or provider-side receipt is claimed by these local gates.
+
+The first remote alpha.8 verification run, `34747128556` at commit `96256ae`,
+failed at `npm ci` before build or deployment. The public tag resolved to the
+correct commit and packed successfully, but npm correctly rejected the Linux
+tarball against the Windows-generated local-file integrity in the committed
+lockfile. This is the previously documented cross-platform gzip identity issue,
+not a source-content or Matomo failure. The workflow correction refreshes only
+the runner-local package-lock metadata from the exact commit-pinned tarball
+before `npm ci`; the tag and resolved commit remain the stable source identity.

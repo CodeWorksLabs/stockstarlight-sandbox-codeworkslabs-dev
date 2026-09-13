@@ -45,6 +45,8 @@ jobs:
       - name: Verify public product artifact exists
         shell: bash
         run: test -f "vendor/$ANALYTICS_TARBALL"
+      - name: Reconcile runner-produced local artifact integrity
+        run: npm install --package-lock-only --ignore-scripts
       - run: npm ci
       - run: npm audit --omit=dev
       - run: npm run build
