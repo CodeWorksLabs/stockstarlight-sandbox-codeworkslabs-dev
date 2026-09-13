@@ -303,3 +303,13 @@ image optimization, and Wrangler dry-run all passed. Both audits reported zero
 vulnerabilities. Only the stock fixture's known empty-`i18n` and missing
 `docs -> 404` warnings remained. This verification made no Cloudflare or
 provider mutation.
+
+Commit `3b9697d` retained the exact reviewed alpha.8 package and was pushed to
+public `main`. GitHub Actions run `34767343511` completed successfully for that
+exact commit. Cloudflare's native Builds integration was then connected to
+`CodeWorksLabs/stockstarlight-sandbox-codeworkslabs-dev`, production branch
+`main`, with build command `npm run build`, deploy command `npm run deploy`,
+root directory `/`, and non-production branch builds enabled. Cloudflare
+reported that the first repository-driven build would begin on the next push;
+this checkpoint update is that triggering push. Live deployment and Matomo
+receipt remain to be verified after the build completes.
