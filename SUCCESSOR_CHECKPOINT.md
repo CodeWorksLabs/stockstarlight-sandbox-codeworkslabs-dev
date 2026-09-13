@@ -327,3 +327,35 @@ all four configured provider labels including Matomo, and uses the dedicated
 pages, completed Pagefind, sitemap, and image optimization, and passed the
 Wrangler dry-run. Only the two known stock-content warnings remained. The
 reviewed alpha.8 package is unchanged.
+
+## Analytics for Astro alpha.9 preparation — 2026-09-13
+
+Public product `main` commit
+`43473be89dd9e29144c92f3ac0f6e6ab0776f104` and annotated tag
+`v0.1.0-alpha.9` add the reviewed Umami adapter. This repository now declares
+that exact tag/commit in `analytics-source.json` and CI, vendors the exact
+tag-built archive, updates its lock to alpha.9, and labels Umami explicitly in
+the journey receipt UI. The archive is 45,298 bytes with SHA-256
+`0F52A54583AB7A875BEC39B55E2B1095B872D47C712588335B634B8EC9AE253A` and npm
+integrity
+`sha512-tQOoC/1EadcOP0sHjhGbD0ecI0HzJsONFXyP/pJzk6+hygbeEn/y6d73DQryOYuFE92UucJF0t/qWN56NkcaGQ==`.
+
+Before Umami configuration was available, the exact alpha.9 dependency passed
+the repository's sequential `npm ci`, production audit, Starlight build,
+Pagefind/sitemap/image generation, and Wrangler dry-run gates. Analytics Tools
+then created the site's distinct Umami record after Site Registry admitted
+canonical Site `site-000028` and deployment `sdep-000028`. The public website
+UUID is `b668a0a3-9058-409c-bbef-f1ac9aa7d81f`, using
+`https://umami.codeworkslabs.net/script.js`; no separate `hostUrl` is needed
+because collection uses the same origin. Final gate replay, commit, push,
+repository-driven deployment, and live receipt remain pending. The two known
+stock-content warnings remained unchanged.
+
+The fully configured final local gate passed sequentially: clean `npm ci`, zero
+production dependency vulnerabilities, six-page Starlight production build,
+Pagefind/sitemap/image generation, Wrangler dry-run, and `git diff --check`.
+The installed runtime SHA-256 is
+`4DC88354F6C562FC42A1BA64889819958C36FC966706038FC55C1B103F598400`. Emitted
+bundle `dist/_astro/page.C00njAER.js` contains the exact Umami script origin and
+Starlight website UUID. The repository is ready for its alpha.9 commit/push and
+Cloudflare Workers Builds deployment.

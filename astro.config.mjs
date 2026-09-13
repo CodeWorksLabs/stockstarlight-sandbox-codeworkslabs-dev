@@ -36,6 +36,11 @@ export default defineConfig({
 							siteId: '3',
 							eventCategory: 'Starlight sandbox',
 						},
+						{
+							name: 'umami',
+							websiteId: 'b668a0a3-9058-409c-bbef-f1ac9aa7d81f',
+							scriptSrc: 'https://umami.codeworkslabs.net/script.js',
+						},
 					],
 					events: true,
 				}),

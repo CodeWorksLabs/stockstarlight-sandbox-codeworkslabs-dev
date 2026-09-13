@@ -14,7 +14,9 @@
 			? 'Google Analytics 4'
 			: provider === 'plausible'
 				? 'Plausible'
-				: provider === 'matomo' ? 'Matomo' : provider;
+				: provider === 'matomo'
+					? 'Matomo'
+					: provider === 'umami' ? 'Umami' : provider;
 	if (!stored) {
 		if (result) result.textContent = 'This page was opened directly, so there is no preceding journey-event receipt in this tab.';
 	} else {
