@@ -43,7 +43,8 @@ export default defineConfig({
 			social: [
 				{ icon: 'github', label: 'GitHub', href: 'https://github.com/withastro/starlight' },
 			],
-			sidebar: [
+				sidebar: [
+				{ label: 'Analytics test', slug: 'analytics' },
 				{ label: 'Guides', items: [{ label: 'Example Guide', slug: 'guides/example' }] },
 				{ label: 'Reference', items: [{ autogenerate: { directory: 'reference' } }] },
 			],

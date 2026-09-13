@@ -1,0 +1,123 @@
+<section class="journey-panel" aria-labelledby="journey-heading">
+	<div>
+		<h2 id="journey-heading">Two observable stops</h2>
+		<ol>
+			<li><strong>Landing:</strong> every configured adapter records its standard pageview for this page.</li>
+			<li><strong>Next stop:</strong> the link sends one journey event to all configured adapters before navigation.</li>
+		</ol>
+	</div>
+	<label class="adapter-field" for="adapter-select">
+		<span>Adapter required to continue</span>
+		<select id="adapter-select" disabled>
+			<option>Checking configured adapters…</option>
+		</select>
+	</label>
+	<a class="journey-action" href="/analytics/next/" data-journey-next data-disabled aria-disabled="true">Continue to the next stop →</a>
+	<output id="journey-status" aria-live="polite">Checking the Analytics for Astro event client…</output>
+	<p class="boundary">The event fans out to every configured provider. The selected adapter is the success criterion for advancing; the destination preserves every adapter result. No retries, queues, or synthetic traffic.</p>
+</section>
+
+<script>
+	import {
+		configuredProviders,
+		providerStatuses,
+		track,
+		type ProviderName,
+	} from '@codeworkslabs/astro-analytics/client';
+
+	const next = document.querySelector<HTMLAnchorElement>('[data-journey-next]');
+	const status = document.querySelector<HTMLOutputElement>('#journey-status');
+	const adapterSelect = document.querySelector<HTMLSelectElement>('#adapter-select');
+	const providerLabel = (provider: ProviderName) => provider === 'fathom'
+		? 'Fathom'
+		: provider === 'google-analytics'
+			? 'Google Analytics 4'
+			: provider === 'plausible'
+				? 'Plausible'
+				: provider === 'matomo'
+					? 'Matomo'
+					: provider;
+	const providers = configuredProviders();
+	const selectedProvider = () => adapterSelect?.value as ProviderName | undefined;
+	const setJourneyEnabled = (enabled: boolean) => {
+		if (!next) return;
+		next.setAttribute('aria-disabled', String(!enabled));
+		if (enabled) next.removeAttribute('data-disabled');
+		else next.setAttribute('data-disabled', '');
+	};
+	const renderReadiness = () => {
+		const provider = selectedProvider();
+		if (!provider || !providers.includes(provider)) {
+			setJourneyEnabled(false);
+			if (status) status.textContent = 'No event adapters are configured. The journey cannot advance.';
+			return false;
+		}
+		const runtimeStatus = providerStatuses()[provider];
+		const label = providerLabel(provider);
+		const ready = runtimeStatus === 'ready';
+		setJourneyEnabled(ready);
+		if (status) {
+			status.textContent = ready
+				? `${label} is ready for an explicit test event.`
+				: runtimeStatus === 'consent-pending'
+					? `${label} is waiting for consent. The journey has not started.`
+					: `${label} is loading. The journey will be enabled when its event adapter is ready.`;
+		}
+		return ready;
+	};
+	if (adapterSelect) {
+		adapterSelect.replaceChildren(...providers.map((provider) => {
+			const option = document.createElement('option');
+			option.value = provider;
+			option.textContent = providerLabel(provider);
+			return option;
+		}));
+		adapterSelect.disabled = providers.length === 0;
+		adapterSelect.addEventListener('change', renderReadiness);
+	}
+	renderReadiness();
+	const readinessPoll = window.setInterval(renderReadiness, 250);
+	window.addEventListener('pagehide', () => window.clearInterval(readinessPoll), { once: true });
+	next?.addEventListener('click', (event) => {
+		event.preventDefault();
+		const provider = selectedProvider();
+		if (!provider || !providers.includes(provider)) {
+			if (status) status.textContent = 'Select a configured adapter before continuing.';
+			return;
+		}
+		if (providerStatuses()[provider] !== 'ready') {
+			renderReadiness();
+			return;
+		}
+		const response = track('cwl_starlight_journey_continued', {
+			action: 'continue',
+			surface: 'starlight-sandbox',
+		});
+		const selectedResult = response.providers[provider];
+		const label = providerLabel(provider);
+		if (selectedResult?.ok !== true) {
+			const reason = selectedResult?.reason ?? response.reason ?? 'adapter-not-loaded';
+			if (status) status.textContent = `${label} did not accept the event (${reason}). The journey has not advanced.`;
+			return;
+		}
+		if (status) status.textContent = `${label} accepted the event. Continuing to the next stop…`;
+		sessionStorage.setItem('cwl-starlight-journey-result', JSON.stringify({
+			selectedProvider: provider,
+			response,
+		}));
+		window.location.assign(next.href);
+	});
+</script>
+
+<style>
+	.journey-panel { display: grid; gap: 1.4rem; margin-top: 2rem; padding: clamp(1.25rem, 4vw, 2rem); border: 1px solid var(--sl-color-gray-5); border-radius: 1rem; background: var(--sl-color-gray-7); }
+	h2 { margin: 0 0 .8rem; }
+	ol { display: grid; gap: .65rem; margin: 0; padding-left: 1.25rem; }
+	.adapter-field { display: grid; gap: .55rem; font-weight: 700; }
+	.adapter-field span { font-size: .9rem; }
+	select { width: min(100%, 24rem); padding: .72rem .8rem; border: 1px solid var(--sl-color-gray-4); border-radius: .7rem; color: var(--sl-color-white); background: var(--sl-color-black); font: inherit; }
+	.journey-action { justify-self: start; padding: .8rem 1rem; border-radius: .75rem; color: var(--sl-color-black); background: var(--sl-color-accent-high); font-weight: 750; text-decoration: none; }
+	.journey-action[data-disabled] { opacity: .5; pointer-events: none; }
+	output { display: block; padding: .85rem 1rem; border-radius: .7rem; background: var(--sl-color-black); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .84rem; line-height: 1.5; }
+	.boundary { margin: 0; font-size: .86rem; }
+</style>

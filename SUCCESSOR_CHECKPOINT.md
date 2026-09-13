@@ -313,3 +313,17 @@ root directory `/`, and non-production branch builds enabled. Cloudflare
 reported that the first repository-driven build would begin on the next push;
 this checkpoint update is that triggering push. Live deployment and Matomo
 receipt remain to be verified after the build completes.
+
+The first repository-driven deployment completed as Worker version
+`fbe2a737-919c-405b-9f8c-5a8b0e94cd10`. The live root returned HTTP 200 and
+its primary runtime contained the Matomo endpoint. Browser qualification then
+proved that the earlier manually exercised `/analytics/` and
+`/analytics/next/` journey surface had never been retained in this repository;
+the repository-driven deployment therefore returned the stock Starlight 404
+for `/analytics/`. The repository now contains permanent Starlight-native
+journey and receipt pages, exposes the test through the sidebar, distinguishes
+all four configured provider labels including Matomo, and uses the dedicated
+`cwl_starlight_journey_continued` event name. The corrected build emitted six
+pages, completed Pagefind, sitemap, and image optimization, and passed the
+Wrangler dry-run. Only the two known stock-content warnings remained. The
+reviewed alpha.8 package is unchanged.
