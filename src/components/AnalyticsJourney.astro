@@ -12,7 +12,7 @@
 			<option>Checking configured adapters…</option>
 		</select>
 	</label>
-	<a class="journey-action" href="/analytics/next/" data-journey-next data-disabled aria-disabled="true">Continue to the next stop →</a>
+	<a class="journey-action" href="/analytics/handoff/" data-journey-next data-disabled aria-disabled="true">Continue to the next stop →</a>
 	<output id="journey-status" aria-live="polite">Checking the Analytics for Astro event client…</output>
 	<p class="boundary">The event fans out to every configured provider. The selected adapter is the success criterion for advancing; the destination preserves every adapter result. No retries, queues, or synthetic traffic.</p>
 </section>
@@ -24,6 +24,15 @@
 		track,
 		type ProviderName,
 	} from '@codeworkslabs/astro-analytics/client';
+	import {
+		clearPendingJourneyReceiptIfCurrent,
+		clearJourneyReceipt,
+		createJourneyHandoffUrl,
+		createJourneyReceipt,
+		JOURNEY_RECEIPT_MAX_AGE_MS,
+		JOURNEY_SOURCE_PATH,
+		persistJourneyReceipt,
+	} from '../lib/journey-receipt';
 
 	const next = document.querySelector<HTMLAnchorElement>('[data-journey-next]');
 	const status = document.querySelector<HTMLOutputElement>('#journey-status');
@@ -38,6 +47,8 @@
 					? 'Matomo'
 					: provider === 'umami' ? 'Umami' : provider;
 	const providers = configuredProviders();
+	const journeyStorageKey = 'cwl-starlight-journey-result';
+	let outcomeLocked = false;
 	const selectedProvider = () => adapterSelect?.value as ProviderName | undefined;
 	const setJourneyEnabled = (enabled: boolean) => {
 		if (!next) return;
@@ -46,6 +57,7 @@
 		else next.setAttribute('data-disabled', '');
 	};
 	const renderReadiness = () => {
+		if (outcomeLocked) return false;
 		const provider = selectedProvider();
 		if (!provider || !providers.includes(provider)) {
 			setJourneyEnabled(false);
@@ -73,15 +85,50 @@
 			return option;
 		}));
 		adapterSelect.disabled = providers.length === 0;
-		adapterSelect.addEventListener('change', renderReadiness);
 	}
-	renderReadiness();
-	const readinessPoll = window.setInterval(renderReadiness, 250);
-	window.addEventListener('pagehide', () => window.clearInterval(readinessPoll), { once: true });
+	let readinessPoll: number | undefined;
+	let navigationTimeout: number | undefined;
+	const stopReadinessPoll = () => {
+		if (readinessPoll !== undefined) window.clearInterval(readinessPoll);
+		readinessPoll = undefined;
+	};
+	const startReadinessPoll = () => {
+		stopReadinessPoll();
+		renderReadiness();
+		readinessPoll = window.setInterval(renderReadiness, 250);
+	};
+	const stopNavigationTimeout = () => {
+		if (navigationTimeout !== undefined) window.clearTimeout(navigationTimeout);
+		navigationTimeout = undefined;
+	};
+	const recoverJourney = () => {
+		outcomeLocked = true;
+		stopReadinessPoll();
+		stopNavigationTimeout();
+		try {
+			clearJourneyReceipt(sessionStorage, journeyStorageKey);
+		} catch {
+			setJourneyEnabled(false);
+			if (status) status.textContent = 'This browser could not clear the previous journey receipt. The journey remains locked.';
+			return;
+		}
+		outcomeLocked = false;
+		startReadinessPoll();
+	};
+	adapterSelect?.addEventListener('change', recoverJourney);
+	recoverJourney();
+	window.addEventListener('pagehide', () => {
+		stopReadinessPoll();
+		stopNavigationTimeout();
+	});
+	window.addEventListener('pageshow', recoverJourney);
 	next?.addEventListener('click', (event) => {
 		event.preventDefault();
+		if (outcomeLocked) return;
 		const provider = selectedProvider();
 		if (!provider || !providers.includes(provider)) {
+			outcomeLocked = true;
+			setJourneyEnabled(false);
 			if (status) status.textContent = 'Select a configured adapter before continuing.';
 			return;
 		}
@@ -96,16 +143,44 @@
 		const selectedResult = response.providers[provider];
 		const label = providerLabel(provider);
 		if (selectedResult?.ok !== true) {
-			const reason = selectedResult?.reason ?? response.reason ?? 'adapter-not-loaded';
+			const reason = selectedResult?.reason ?? ('reason' in response ? response.reason : undefined) ?? 'adapter-not-loaded';
+			outcomeLocked = true;
+			setJourneyEnabled(false);
 			if (status) status.textContent = `${label} did not accept the event (${reason}). The journey has not advanced.`;
 			return;
 		}
+		outcomeLocked = true;
+		setJourneyEnabled(false);
 		if (status) status.textContent = `${label} accepted the event. Continuing to the next stop…`;
-		sessionStorage.setItem('cwl-starlight-journey-result', JSON.stringify({
-			selectedProvider: provider,
-			response,
-		}));
-		window.location.assign(next.href);
+		let destinationHref: string;
+		let journeyId: string;
+		try {
+			journeyId = crypto.randomUUID();
+			const receipt = createJourneyReceipt(journeyId, provider, response, Date.now());
+			destinationHref = createJourneyHandoffUrl(next.href, journeyId, window.location.origin);
+			persistJourneyReceipt(sessionStorage, journeyStorageKey, receipt);
+		} catch {
+			if (status) status.textContent = `${label} accepted the event, but this browser could not save the receipt. The journey has not advanced.`;
+			return;
+		}
+		try {
+			window.location.assign(destinationHref);
+			navigationTimeout = window.setTimeout(() => {
+				navigationTimeout = undefined;
+				if (window.location.pathname !== JOURNEY_SOURCE_PATH) return;
+				try {
+					if (!clearPendingJourneyReceiptIfCurrent(sessionStorage, journeyStorageKey, journeyId)) return;
+				} catch {
+					if (status) status.textContent = `${label} accepted the event, but navigation did not complete and the expired receipt could not be cleared. The journey has not advanced.`;
+					return;
+				}
+				if (status) status.textContent = `${label} accepted the event, but navigation did not complete. The journey has not advanced.`;
+			}, JOURNEY_RECEIPT_MAX_AGE_MS + 1);
+		} catch {
+			stopNavigationTimeout();
+			try { clearPendingJourneyReceiptIfCurrent(sessionStorage, journeyStorageKey, journeyId); } catch {}
+			if (status) status.textContent = `${label} accepted the event, but navigation failed. The journey has not advanced.`;
+		}
 	});
 </script>
 

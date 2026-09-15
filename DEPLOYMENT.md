@@ -10,4 +10,10 @@ This repository builds a static Astro site for `https://stockstarlight.sandbox.c
 4. Run `npm run build`.
 5. Run `npm run deploy:dry-run`.
 
-No command above deploys. Only after separate explicit authorization may an operator run `npm run deploy`. A deployment does not authorize DNS, route, domain, or other provider changes.
+No command above deploys. Cloudflare Workers Builds is connected to this
+repository with `main` as its production branch, so pushing a commit to this
+repository's own `main` triggers a production build and deployment. Treat that
+push as a deployment action and require separate explicit deployment
+authorization before performing it. An operator may also deploy explicitly
+with `npm run deploy`, but only under the same authorization. A deployment does
+not authorize DNS, route, domain, or other provider changes.

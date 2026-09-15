@@ -10,6 +10,7 @@ export default defineConfig({
 			title: 'My Docs',
 			plugins: [
 				starlightAnalytics({
+					blockedQueryParameters: ['cwl_journey'],
 					providers: [
 						{ name: 'fathom', siteId: 'FRMRGPFB' },
 						{

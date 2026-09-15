@@ -10,6 +10,8 @@ Cloudflare Worker configuration name: `stockstarlight-sandbox-codeworkslabs-dev`
 ```sh
 npm ci
 npm audit --omit=dev
+npm test
+npm run check
 npm run build
 npm run deploy:dry-run
 ```

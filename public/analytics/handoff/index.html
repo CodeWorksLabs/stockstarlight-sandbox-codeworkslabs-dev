@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<meta name="robots" content="noindex, nofollow">
+	<title>Securing analytics journey handoff</title>
+</head>
+<body>
+	<main>
+		<h1>Securing the journey handoff…</h1>
+		<p id="handoff-status">The destination will load after the one-time journey identity is removed.</p>
+	</main>
+	<script>
+	(() => {
+		const status = document.getElementById('handoff-status');
+		const storageKey = 'cwl-starlight-journey-result';
+		const requiredKeys = ['version', 'journeyId', 'createdAt', 'sourcePath', 'destinationPath', 'selectedProvider', 'response', 'phase'];
+		const fail = (message) => {
+			try {
+				sessionStorage.removeItem(storageKey);
+				if (sessionStorage.getItem(storageKey) !== null) throw new Error();
+			} catch {}
+			if (status) status.textContent = message;
+		};
+		try {
+			const now = Date.now();
+			const original = new URL(window.location.href);
+			const journeyIds = original.searchParams.getAll('cwl_journey');
+			if (original.pathname !== '/analytics/handoff/' || journeyIds.length !== 1 ||
+				!journeyIds[0] || journeyIds[0].length > 128) throw new TypeError();
+			const stored = sessionStorage.getItem(storageKey);
+			if (stored === null) throw new TypeError();
+			const receipt = JSON.parse(stored);
+			if (!receipt || typeof receipt !== 'object' || Array.isArray(receipt) ||
+				Reflect.ownKeys(receipt).length !== requiredKeys.length ||
+				requiredKeys.some((key) => !Reflect.ownKeys(receipt).includes(key)) ||
+				receipt.version !== 4 || receipt.journeyId !== journeyIds[0] ||
+				!Number.isSafeInteger(receipt.createdAt) || receipt.createdAt > now ||
+				now - receipt.createdAt > 120000 || receipt.sourcePath !== '/analytics/' ||
+				receipt.destinationPath !== '/analytics/next/' || receipt.phase !== 'pending') throw new TypeError();
+
+			const cleanHandoff = new URL(original.href);
+			cleanHandoff.searchParams.delete('cwl_journey');
+			history.replaceState(history.state, '', `${cleanHandoff.pathname}${cleanHandoff.search}${cleanHandoff.hash}`);
+			if (new URL(window.location.href).href !== cleanHandoff.href) throw new TypeError();
+
+			const destination = new URL(cleanHandoff.href);
+			destination.pathname = '/analytics/next/';
+			const handoffReceipt = { ...receipt, phase: 'handoff', handoffAt: now, destinationHref: destination.href };
+			const serialized = JSON.stringify(handoffReceipt);
+			sessionStorage.setItem(storageKey, serialized);
+			if (sessionStorage.getItem(storageKey) !== serialized) throw new TypeError();
+
+			window.location.replace(destination.href);
+			window.setTimeout(() => {
+				if (window.location.pathname === '/analytics/handoff/') {
+					fail('The browser did not complete the clean handoff. Return to the analytics test and try again.');
+				}
+			}, 120001);
+		} catch {
+			fail('The one-time journey handoff could not be verified. Return to the analytics test and try again.');
+		}
+	})();
+	</script>
+</body>
+</html>
