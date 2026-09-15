@@ -10,16 +10,17 @@ Updated: 2026-09-14
   `ae6a9884e3cada297f11c641a90082f296380bcb`.
 - The exact candidate package is 27,344 bytes with SHA-256
   `6734b4b449d85ecc8cdf2c9009aac4e8a733e06e045634468ba59277cd37b228`.
-- The local candidate has not been pushed or deployed.
+- Qualification commit `38901b2a21992882a52e0ae127757a40d49f5e4e`
+  is pushed and deployed.
 
 ## Live state
 
-- The live Cloudflare Worker remains
-  `6683e6fa-357d-43fa-acf8-6f3c19c7fac2`.
-- That deployment belongs to the accepted Alpha.10 generation, not the local
-  Alpha.20 candidate.
-- `https://stockstarlight.sandbox.codeworkslabs.dev/analytics/` returned HTTP
-  200 during the 2026-09-14 recovery inventory.
+- The live Cloudflare Worker version is
+  `b9d215d6-1b83-40ec-8f0f-4311cb5ab275`.
+- It deploys the qualified Alpha.20 consumer from commit `38901b2a`.
+- `https://stockstarlight.sandbox.codeworkslabs.dev/analytics/` and
+  `/analytics/next/` returned HTTP 200 after deployment. The live analytics
+  bundle contains all five configured provider integrations.
 
 ## Verification state
 
@@ -36,7 +37,6 @@ Updated: 2026-09-14
 
 - The pre-cleanup 17-commit local history is preserved in
   `C:\CodeProjects\Archives\Astro Analytics Recovery\2026-09-14\starlight-sandbox-before-cleanup.bundle`.
-- Alpha.20 is locally qualified for this consumer. Push and deployment still
-  require Phil's exact authorization.
+- Alpha.20 is locally qualified, pushed, and deployed for this consumer.
 - Product development does not authorize GitHub, credential, Cloudflare,
   deployment, or release changes.
