@@ -1,9 +1,9 @@
 {
   "repository": "CodeWorksLabs/astro-analytics",
-  "ref": "ae6a9884e3cada297f11c641a90082f296380bcb",
-  "commit": "ae6a9884e3cada297f11c641a90082f296380bcb",
-  "version": "0.1.0-alpha.20",
-  "tarball": "codeworkslabs-astro-analytics-0.1.0-alpha.20.tgz",
-  "sha256": "6734b4b449d85ecc8cdf2c9009aac4e8a733e06e045634468ba59277cd37b228",
-  "integrity": "sha512-4kFdiQ+A1qQVKUtOVqrqDa310S2dBBfRv3UmDeLis5qRN71yt438dIEPi/ojiExIy5W8A5C5Oc1Jq2sG4hsM3w=="
+  "ref": "40713fc7f52ac1b3a0e968d995de10640f851934",
+  "commit": "40713fc7f52ac1b3a0e968d995de10640f851934",
+  "version": "0.1.0-alpha.21",
+  "tarball": "codeworkslabs-astro-analytics-0.1.0-alpha.21.tgz",
+  "sha256": "0237b5d93c79b4ea90b842f96079e759076c0ea87ea01f97097383998541a9c7",
+  "integrity": "sha512-v1SSq14hDqDjOScdZk4uPoTM2MAsHYPW6QrlyBxllfIIf6LpQv2IzXBNBnB3D07FkiiQ3AL/1HdkwTv1jRDl2Q=="
 }

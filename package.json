@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "@astrojs/starlight": "0.42.0",
-    "@codeworkslabs/astro-analytics": "file:vendor/codeworkslabs-astro-analytics-0.1.0-alpha.20.tgz",
+    "@codeworkslabs/astro-analytics": "file:vendor/codeworkslabs-astro-analytics-0.1.0-alpha.21.tgz",
     "astro": "7.3.2",
     "sharp": "0.35.4"
   },
