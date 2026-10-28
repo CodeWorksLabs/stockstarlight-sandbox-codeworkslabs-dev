@@ -10,7 +10,7 @@ permissions:
   contents: read
 
 env:
-  ANALYTICS_COMMIT: 40713fc7f52ac1b3a0e968d995de10640f851934
+  ANALYTICS_COMMIT: 3a58043a6cc22a8778cc5c1d17cd9e15531d2bb3
 
 jobs:
   verify:

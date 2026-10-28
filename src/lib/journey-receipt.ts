@@ -10,7 +10,7 @@ type JourneyWritableStorage = Pick<Storage, 'getItem' | 'setItem' | 'removeItem'
 
 export const JOURNEY_PROVIDER_NAMES = ['fathom', 'google-analytics', 'plausible', 'matomo', 'umami'] as const;
 export type JourneyProviderName = typeof JOURNEY_PROVIDER_NAMES[number];
-const PROVIDER_FAILURE_REASONS = ['adapter-not-loaded', 'consent-pending', 'invalid-event'] as const;
+const PROVIDER_FAILURE_REASONS = ['adapter-not-loaded', 'consent-pending', 'consent-denied', 'invalid-event'] as const;
 type ProviderFailureReason = typeof PROVIDER_FAILURE_REASONS[number];
 type ValidatedProviderResult = { ok: true } | { ok: false; reason: ProviderFailureReason };
 

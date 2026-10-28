@@ -4,7 +4,7 @@
 
 1. Clone `https://github.com/CodeWorksLabs/stockstarlight-sandbox-codeworkslabs-dev.git`.
 2. Check out the required commit on `main`.
-3. Run `npm ci` with Node.js 22 or later.
+3. Run `npm ci` with Node.js 22.18.0 or later (verification: 22.22.2).
 4. Run the repository verification sequence in `README.md`.
 
 Generated directories (`node_modules`, `dist`, `.astro`, and `.wrangler`) are intentionally untracked and must be regenerated.

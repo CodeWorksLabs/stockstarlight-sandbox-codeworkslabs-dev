@@ -20,6 +20,9 @@ export default defineConfig({
 						{
 							name: 'google-analytics',
 							measurementId: 'G-SW9Z74X4XT',
+							pageviews: 'astro',
+							// Phil confirmed history-based GA pageviews are off, 2026-10-28.
+							historyPageviewsDisabled: true,
 							consent: {
 								mode: 'immediate',
 								initial: {

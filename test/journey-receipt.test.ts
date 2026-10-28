@@ -141,6 +141,7 @@ test('provider results require exact shapes, membership, and aggregate consisten
 		['fathom', { ok: true }], ['plausible', { ok: false, reason: 'consent-pending' }],
 	]);
 	const invalid = [
+		{ ok: false, providers: { fathom: { ok: false, reason: 'consent-denied' }, plausible: { ok: true } } },
 		{ ok: true, providers: { fathom: { ok: true }, plausible: { ok: true } }, extra: true },
 		{ ok: true, providers: { fathom: { ok: true, reason: 'invalid-event' }, plausible: { ok: true } } },
 		{ ok: false, providers: { fathom: { ok: true }, plausible: { ok: false } } },
@@ -150,6 +151,9 @@ test('provider results require exact shapes, membership, and aggregate consisten
 		{ ok: false, providers: { fathom: { ok: true }, plausible: { ok: false, reason: 'invalid-event' }, umami: { ok: true } } },
 		{ ok: false, providers: { fathom: { ok: true }, plausible: { ok: false, reason: 'invalid-event' } }, reason: 'invalid-event' },
 	];
+	assert.deepEqual(valid({ ok: false, providers: { fathom: { ok: true }, plausible: { ok: false, reason: 'consent-denied' } } }), [
+		['fathom', { ok: true }], ['plausible', { ok: false, reason: 'consent-denied' }],
+	]);
 	for (const response of invalid) assert.throws(() => valid(response));
 	assert.throws(() => valid({ ok: false, providers: { fathom: { ok: false, reason: 'invalid-event' }, plausible: { ok: true } } }));
 });

@@ -4,10 +4,10 @@
   "type": "module",
   "version": "0.0.1",
   "engines": {
-    "node": ">=22.12.0"
+    "node": ">=22.18.0"
   },
   "scripts": {
-    "test": "node --test",
+    "test": "node --import ./fixtures/register-analytics-types.mjs --test",
     "dev": "astro dev",
     "check": "astro check",
     "build": "astro build",
@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "@astrojs/starlight": "0.42.0",
-    "@codeworkslabs/astro-analytics": "file:vendor/codeworkslabs-astro-analytics-0.1.0-alpha.21.tgz",
+    "@codeworkslabs/astro-analytics": "file:vendor/codeworkslabs-astro-analytics-0.1.0-alpha.23.tgz",
     "astro": "7.3.2",
     "sharp": "0.35.4"
   },

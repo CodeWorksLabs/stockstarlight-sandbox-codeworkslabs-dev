@@ -73,7 +73,9 @@
 				? `${label} is ready for an explicit test event.`
 				: runtimeStatus === 'consent-pending'
 					? `${label} is waiting for consent. The journey has not started.`
-					: `${label} is loading. The journey will be enabled when its event adapter is ready.`;
+					: runtimeStatus === 'consent-denied'
+						? `${label} consent is denied. The journey cannot advance until consent is granted.`
+						: `${label} is loading. The journey will be enabled when its event adapter is ready.`;
 		}
 		return ready;
 	};
