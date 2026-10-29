@@ -25,8 +25,12 @@ new MDX MODULE_LEVEL_DIRECTIVE head-injection warning. The raw build log was
 preserved. Reviewer established no demonstrated regression in exact static
 output through query-flag/metadata tracing, HTML comparison and generated
 analytics replay. No universal MDX/native-browser qualification is implied.
-The records now include that warning; focused reporting closure is pending
-at this pre-closure snapshot. No executable, graph or output changed. See
+The records now include that warning. Focused Correction Closure Check
+AFA-STARLIGHT-SANDBOX-DEPENDENCY-REPORT-CLOSURE-20261028-01 concluded INTERNAL
+CODE REVIEW PASS at be143b55443dc91719a0b1fb742b3caa33aca2fb,
+tree ae447f3cfc0ab6ad48337acc79c65dc56b4327d2, clean closing state. P3 closed,
+zero open focused findings. No executable, graph or output changed. This later
+record entry is not a new full-candidate disposition. See
 DEPENDENCY_CORRECTION_20261028.md for assessment/full delta/fresh exits. Normal
 install, production/full audits(zero), 16 tests, check10zero, 6page/45file build
 and Wrangler4.155.0 dry run all passed. No source/config/artifact/CI changes.
@@ -34,9 +38,13 @@ At the declared freeze, editing stopped and queue empty; commissioning message
 binds exact commit/tree containing this checkpoint. Evidence root:
 C:\Users\Owner\AppData\Local\Temp\starlight-sandbox-dependency-fix-bcd48957febb48e89fb8c0095537894f.
 Full before audit:12 affected package entries (7high,4moderate,1low), including
-development-tool chains. Next: independent sub-agent reporting closure of the
-submitted records against immutable logs/output. No previous PASS transfers. Product
-source/provider/live/remote CI unchanged; no push or deployment.
+development-tool chains. Both sandbox dependency corrections, preflight checks,
+internal sub-agent Composite reviews and focused P3 closures are now complete
+within their exact local scopes. No open findings remain from these reviews.
+Next action requires separate authorization for push/deployment and subsequent
+native browser/provider rollout verification; none has occurred. No previous
+PASS transfers to changed candidates. Product source/provider/live/remote CI
+remain unchanged. Local records are committed; nothing has been pushed.
 
 ## Historical deployment-check state before correction
 

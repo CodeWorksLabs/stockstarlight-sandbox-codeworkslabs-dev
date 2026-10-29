@@ -145,4 +145,47 @@ dependency, artifact, test, workflow, config, raw log or output changed. Those
 evidence identities/provenance stay unchanged; no rerun is warranted for these
 non-build-input records. Original disposition stays bound to e92b59b. Exact
 new documentation freeze is in the commissioning message. Focused independent
-reporting closure is pending at this snapshot, not a new full-candidate PASS.
+reporting closure was pending at that snapshot, not a new full-candidate PASS.
+
+## Focused closure result recorded after disposition
+
+AFA-STARLIGHT-SANDBOX-DEPENDENCY-REPORT-CLOSURE-20261028-01, Correction Closure
+Check, concluded INTERNAL CODE REVIEW PASS. Same requester/candidate owner/
+independent reviewer; Static only, complete doctrine/appendix read and identity
+freshly verified unchanged, method audit not commissioned. Freeze acknowledged,
+editing stopped, queue empty, no replacement/integrity event, DISPOSITION ISSUED.
+Opening/closing main be143b55443dc91719a0b1fb742b3caa33aca2fb,
+tree ae447f3cfc0ab6ad48337acc79c65dc56b4327d2,
+upstream b51cf374ac53ffbfc549e8732dd1121a48929cb6,
+baseline e92b59bbb04a507cf290d68db466b766b5a1edab, clean tracked/staged/relevant
+untracked state. Original report, three corrected records, exact delta, raw log,
+dependency/artifact identities and output evidence present; native/provider
+evidence inapplicable to this focused scope.
+
+Threats: incomplete warning narration, promotion beyond bounded evidence, silent
+source/evidence drift. Direct reading confirmed exact diagnostic/literal/three
+MDX modules, distinction from stock warnings, bounded no-demonstrated-regression
+classification/support and explicit future/native limits. Summary/checkpoint
+match original identities/census/provenance/sub-gates/exclusions/disposition.
+Only three records changed; source/graph/artifact/config/tests/workflow/deploy
+instructions unchanged. Raw build log hash and all45 current output files still
+match original identities. Fresh read/in-memory observations, no sampling/rerun.
+
+Impact analysis: non-build-input records affect narration/continuity only.
+Corrected claims independently re-evaluated; original execution retains its
+provenance. Lock,artifact,ledger/archive,audits/exits unchanged. No old PASS
+inherited/promoted. Open P0/P1/P2/P3 all zero, original P3 closed, no unreviewed
+focused scope. Reviewer authored none of corrections; prior exposure disclosed;
+no writes/network/install/audit/provider/cleanup or residue.
+
+Focused member hashes at exact closure:
+```
+1c4ae4f3773c673768527ca368308f300a42628ec4c86f2392be21591ecec62e DEPENDENCY_CORRECTION_20261028.md
+46cb978cc715121d0469da7ea67ef1b8d7fa82bf85a2fb1a1383af1c15550a78 SUCCESSOR_CHECKPOINT.md
+eeef2e2ca6aed5e9db76534d5f1b82e9beb96d49abe467ffa035d65f5fe3b144 REVIEW_DEPENDENCY_CORRECTION_20261028.md
+```
+This appended result and matching checkpoint/control updates are later
+record-only entries. Exact closure identities remain historical; no new whole
+candidate disposition is inferred. Native browser/ClientRouter/accessibility,
+actual vendors/autonomy/ingestion, remoteCI, live rollout/rollback, deployment
+and release/product acceptance remain open and separately authorized.
