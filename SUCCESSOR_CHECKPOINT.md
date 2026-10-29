@@ -2,7 +2,34 @@
 
 Updated: 2026-10-28
 
-## Current deployment-check state
+## Current authorized dependency correction
+
+Phil authorized assessment/correction in both sandboxes, rerun checks and
+independent reviews on2026-10-28, with no push/deployment. Starlight starts at
+clean main738835db17595d9314aeb5d467c9bdf704751806. Planned direct pins:
+Astro7.3.3,Sharp0.35.5,Wrangler4.155.0, with targeted compatible transitive
+updates including PostCSS selector parser. Starlight0.42.0 and exact Alpha.23
+artifact/provider/site behavior remain unchanged. No overrides or force-fix.
+
+Astro's dependency Composite review at2a29ef2 passed with one P3; its displayed
+version correction atbc0754794d4fd43b2fdce599454dd75d15a60101 independently
+closed under AFA-ASTRO-SANDBOX-DEPENDENCY-LABEL-CLOSURE-20261028-01, PASS,
+zero open focused findings. These results do not qualify Starlight.
+
+Starlight's corrected dependencies and fresh checks are complete. Independent
+review is pending at this pre-review snapshot. See
+DEPENDENCY_CORRECTION_20261028.md for assessment/full delta/fresh exits. Normal
+install, production/full audits(zero), 16 tests, check10zero, 6page/45file build
+and Wrangler4.155.0 dry run all passed. No source/config/artifact/CI changes.
+At the declared freeze, editing stopped and queue empty; commissioning message
+binds exact commit/tree containing this checkpoint. Evidence root:
+C:\Users\Owner\AppData\Local\Temp\starlight-sandbox-dependency-fix-bcd48957febb48e89fb8c0095537894f.
+Full before audit:12 affected package entries (7high,4moderate,1low), including
+development-tool chains. Next: independent sub-agent Composite review of this
+exact new dependency graph and output. No previous PASS transfers. Product
+source/provider/live/remote CI unchanged; no push or deployment.
+
+## Historical deployment-check state before correction
 
 Phil authorized deployment checks on 2026-10-28 with no push/deployment.
 Against source HEAD99f2275dc0234c9efa95d7e2ccd95ce1f511b16e, normal npm ci,

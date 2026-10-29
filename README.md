@@ -36,6 +36,15 @@ Local verification disables telemetry with ASTRO_TELEMETRY_DISABLED=1 and npm
 update notices. Audits and Wrangler dry runs remain release gates, unexecuted
 in this no-provider-traffic local phase.
 
+## Dependency correction preflight
+
+The 2026-10-28 corrected candidate pins Astro 7.3.3, Sharp 0.35.5 and Wrangler
+4.155.0, with targeted compatible security updates in the lockfile. Starlight
+remains 0.42.0. See DEPENDENCY_CORRECTION_20261028.md for fresh normal-install,
+zero production/full audit, test/check/build/dry-run evidence and the separate
+independent review. Earlier migration/audit records are historical. No push or
+deployment is implied.
+
 ## Rights
 
 Site software and content carry no repository-wide license unless a file explicitly states one. Artwork is not open licensed by publication or repository access. The public ownership wording is `© 2026 CodeWorksLabs, a WebSynergetics property.`
