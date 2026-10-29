@@ -2,7 +2,20 @@
 
 Updated: 2026-10-28
 
-## Current local Alpha.23 preparation
+## Current deployment-check state
+
+Phil authorized deployment checks on 2026-10-28 with no push/deployment.
+Against source HEAD99f2275dc0234c9efa95d7e2ccd95ce1f511b16e, normal npm ci,
+16 tests, rebuild and Wrangler dry run succeeded. Production audit failed:
+9 affected package entries (6 high,2 moderate,1 low). No dependencies changed
+and no fixes ran. Deployment checks are NOT all green.
+Read DEPLOYMENT_CHECKS_20261028.md for exits, findings, evidence and boundaries.
+The new45-file output is byte-equal to the independently reviewed output.
+Subsequent record-only changes do not alter that executable/output identity.
+Next: decide a bounded dependency correction, then rerun affected gates. No
+push or deployment is authorized; native/live-provider checks remain unexecuted.
+
+## Reviewed local migration record (before deployment checks)
 
 Phil authorized local migration and independent review, one sandbox at a time,
 with no push, deployment or provider changes. Astro's local candidate b2654c8
