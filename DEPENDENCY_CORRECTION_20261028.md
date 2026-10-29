@@ -98,9 +98,24 @@ used; no unrelated cleanup. This is fresh execution, not inherited success.
 
 No new correction-check execution failure occurred. Optional i18n/custom404
 build warnings remain recorded; stock content/config are unchanged. Earlier
-independent review traced the existing fallback404; this is not a new full
-review disposition. Advisory results are dated network data, not an enduring
-security guarantee or independent exploitability determination.
+independent review traced the existing fallback404.
+
+The fresh build also emits MODULE_LEVEL_DIRECTIVE warnings that
+`use astro:head-inject` may not be preserved in the propagated-asset modules for
+index.mdx, analytics.mdx and analytics/next.mdx. This is a new bundler diagnostic,
+separate from the stock-content warnings. The dependency reviewer traced
+Astro's asset handling through astroPropagatedAssets query flags, module
+metadata and collected assets independently of the literal directive. All six
+HTML pages are byte-equal to prior output after substituting only three renamed
+bundle references and the Astro generator version. Expected component scripts,
+styles, markup and links remain; the actual generated analytics bundle passed
+synthetic plain/simulated-router replay. Classification: no demonstrated
+functional regression in this exact static candidate, not a claim that the
+warning is universally harmless or that every future MDX/native browser case
+is qualified. The raw warning log remains immutable and included in evidence.
+
+Advisory results are dated network data, not an enduring security guarantee or
+independent exploitability determination.
 
 Lock SHA-256 b8aa96ac439a9a995db57008f182931c353d4beae0f69790a2056e2a54605ac4.
 Ledger SHA-256 53ae514a10376026ae2451af9870d2be6e72d46e2b18d46c1266fb51d6b4c6f1.
@@ -138,4 +153,16 @@ with explicit impact/provenance analysis. No prior PASS inherited. Native
 browser/ClientRouter/accessibility, vendor code/autonomy/ingestion, remote CI,
 live rollout/rollback, publication/deployment and release/product acceptance
 remain excluded/open. Normal install/audit/build/dry-run are now included
-supplied fresh evidence. Independent review pending at this snapshot.
+supplied fresh evidence. This section records the original pre-review scope.
+
+## Original review and submitted reporting correction
+
+Internal sub-agent review AFA-STARLIGHT-SANDBOX-DEPENDENCY-CORRECTION-20261028-01
+at e92b59bbb04a507cf290d68db466b766b5a1edab,
+tree 99cb7f2167fef561592dcf1a0a1a2fc489a94d2c returned INTERNAL CODE REVIEW PASS
+WITH P2/P3 FINDINGS: P0 0/P1 0/P2 0/P3 1. The P3 was omission of the new MDX
+directive warning from this narrative; raw evidence was present. It is now
+recorded and classified above. No executable/dependency/config/test/output
+change was required or made. See REVIEW_DEPENDENCY_CORRECTION_20261028.md for
+the coordinator report record; full original report remains in Analytics chat.
+Focused independent reporting closure is pending at this pre-closure snapshot.

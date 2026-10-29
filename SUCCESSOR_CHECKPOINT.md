@@ -16,8 +16,17 @@ version correction atbc0754794d4fd43b2fdce599454dd75d15a60101 independently
 closed under AFA-ASTRO-SANDBOX-DEPENDENCY-LABEL-CLOSURE-20261028-01, PASS,
 zero open focused findings. These results do not qualify Starlight.
 
-Starlight's corrected dependencies and fresh checks are complete. Independent
-review is pending at this pre-review snapshot. See
+Starlight's corrected dependencies and fresh checks are complete. Internal
+Composite review AFA-STARLIGHT-SANDBOX-DEPENDENCY-CORRECTION-20261028-01 at
+e92b59bbb04a507cf290d68db466b766b5a1edab,
+tree 99cb7f2167fef561592dcf1a0a1a2fc489a94d2c passed with one P3 reporting
+finding and zero P0-P2. It requires separate recording/classification of the
+new MDX MODULE_LEVEL_DIRECTIVE head-injection warning. The raw build log was
+preserved. Reviewer established no demonstrated regression in exact static
+output through query-flag/metadata tracing, HTML comparison and generated
+analytics replay. No universal MDX/native-browser qualification is implied.
+The records now include that warning; focused reporting closure is pending
+at this pre-closure snapshot. No executable, graph or output changed. See
 DEPENDENCY_CORRECTION_20261028.md for assessment/full delta/fresh exits. Normal
 install, production/full audits(zero), 16 tests, check10zero, 6page/45file build
 and Wrangler4.155.0 dry run all passed. No source/config/artifact/CI changes.
@@ -25,8 +34,8 @@ At the declared freeze, editing stopped and queue empty; commissioning message
 binds exact commit/tree containing this checkpoint. Evidence root:
 C:\Users\Owner\AppData\Local\Temp\starlight-sandbox-dependency-fix-bcd48957febb48e89fb8c0095537894f.
 Full before audit:12 affected package entries (7high,4moderate,1low), including
-development-tool chains. Next: independent sub-agent Composite review of this
-exact new dependency graph and output. No previous PASS transfers. Product
+development-tool chains. Next: independent sub-agent reporting closure of the
+submitted records against immutable logs/output. No previous PASS transfers. Product
 source/provider/live/remote CI unchanged; no push or deployment.
 
 ## Historical deployment-check state before correction
