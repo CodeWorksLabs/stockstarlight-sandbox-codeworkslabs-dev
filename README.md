@@ -20,7 +20,7 @@ The dry run does not publish. Deployment is deliberately separate and requires e
 
 ## Historical Alpha.23 migration
 
-The local candidate vendors the exact Alpha.23 package with unchanged provider
+The original Alpha.23 migration vendored its package with unchanged provider
 IDs and ordinary immediate-consent defaults. GA4 uses Astro-owned pageviews
 with Phil's 2026-10-28 operator attestation that history-pageview collection
 is off. Read MIGRATION_ALPHA23.md for identity, provenance and local gate limits.
