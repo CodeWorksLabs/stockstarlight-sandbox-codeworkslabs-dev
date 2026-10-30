@@ -18,7 +18,7 @@ npm run deploy:dry-run
 
 The dry run does not publish. Deployment is deliberately separate and requires explicit authorization.
 
-## Local Alpha.23 migration candidate
+## Historical Alpha.23 migration
 
 The local candidate vendors the exact Alpha.23 package with unchanged provider
 IDs and ordinary immediate-consent defaults. GA4 uses Astro-owned pageviews
@@ -48,3 +48,9 @@ deployment is implied.
 ## Rights
 
 Site software and content carry no repository-wide license unless a file explicitly states one. Artwork is not open licensed by publication or repository access. The public ownership wording is `© 2026 CodeWorksLabs, a WebSynergetics property.`
+
+## Analytics RC.1 trial
+
+The Analytics trial installs exact npm version `0.1.0-rc.1`. The source
+manifest and committed reference tarball bind the registry dependency to the
+reviewed release bytes; normal builds use the public registry lock entry.

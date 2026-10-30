@@ -15,17 +15,17 @@ test('accepted artifact, source manifest, dependency, lock and workflow pin agre
 	const lock = JSON.parse(readFileSync(new URL('../package-lock.json', import.meta.url), 'utf8'));
 	const entry = lock.packages['node_modules/@codeworkslabs/astro-analytics'];
 	const bytes = readFileSync(new URL(`../vendor/${manifest.tarball}`, import.meta.url));
-	assert.equal(manifest.commit, '3a58043a6cc22a8778cc5c1d17cd9e15531d2bb3');
+	assert.equal(manifest.commit, '4bcd8623c46d5929b8901e7cb1942c7f3b7903bc');
 	assert.equal(manifest.ref, manifest.commit);
-	assert.equal(manifest.version, '0.1.0-alpha.23');
-	assert.equal(bytes.length, 32752);
-	assert.equal(createHash('sha256').update(bytes).digest('hex'), '190408df5cc9b34462081ed213669cbf1149d84e11123969cc82624a87691127');
+	assert.equal(manifest.version, '0.1.0-rc.1');
+	assert.equal(bytes.length, 34765);
+	assert.equal(createHash('sha256').update(bytes).digest('hex'), '249dda517c42e05fd1cdea0c1207358268fe3c7a7efe5ff78e74ac64a1dc6b62');
 	assert.equal(manifest.sha256, createHash('sha256').update(bytes).digest('hex'));
 	assert.equal(manifest.integrity, `sha512-${createHash('sha512').update(bytes).digest('base64')}`);
 	assert.equal(entry.version, manifest.version);
-	assert.equal(entry.resolved, `file:vendor/${manifest.tarball}`);
+	assert.equal(entry.resolved, manifest.registryTarballUrl);
 	assert.equal(entry.integrity, manifest.integrity);
-	assert.equal(pkg.dependencies['@codeworkslabs/astro-analytics'], entry.resolved);
+	assert.equal(pkg.dependencies['@codeworkslabs/astro-analytics'], manifest.version);
 	assert.ok(readFileSync(new URL('../.github/workflows/verify.yml', import.meta.url), 'utf8').includes(`ANALYTICS_COMMIT: ${manifest.commit}`));
 });
 

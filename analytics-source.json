@@ -1,9 +1,10 @@
 {
   "repository": "CodeWorksLabs/astro-analytics",
-  "ref": "3a58043a6cc22a8778cc5c1d17cd9e15531d2bb3",
-  "commit": "3a58043a6cc22a8778cc5c1d17cd9e15531d2bb3",
-  "version": "0.1.0-alpha.23",
-  "tarball": "codeworkslabs-astro-analytics-0.1.0-alpha.23.tgz",
-  "sha256": "190408df5cc9b34462081ed213669cbf1149d84e11123969cc82624a87691127",
-  "integrity": "sha512-n1EJ6WXoWFzzEuwUTlRuw0CAtoOUDur1U+Yqj3GNemeUMhTMZrdgr1MMt0+JOEfM7jNEwzoFh+g6DC8usGqJzQ=="
+  "ref": "4bcd8623c46d5929b8901e7cb1942c7f3b7903bc",
+  "commit": "4bcd8623c46d5929b8901e7cb1942c7f3b7903bc",
+  "version": "0.1.0-rc.1",
+  "tarball": "codeworkslabs-astro-analytics-0.1.0-rc.1.tgz",
+  "sha256": "249dda517c42e05fd1cdea0c1207358268fe3c7a7efe5ff78e74ac64a1dc6b62",
+  "integrity": "sha512-YelsoNpUSF1+PmWuHE9i4pPygT98XO/Iza8XyYydRNIzVNWNB/ICMcj3mLS8AiCOGRpDuOjnTeYLFsvlN90Kgg==",
+  "registryTarballUrl": "https://registry.npmjs.org/@codeworkslabs/astro-analytics/-/astro-analytics-0.1.0-rc.1.tgz"
 }

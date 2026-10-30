@@ -4,7 +4,7 @@ dist/
 .wrangler/
 vendor/*.tgz
 !vendor/codeworkslabs-astro-analytics-0.1.0-alpha.19.tgz
-!vendor/codeworkslabs-astro-analytics-0.1.0-alpha.23.tgz
+!vendor/codeworkslabs-astro-analytics-0.1.0-rc.1.tgz
 
 # Local secrets and environment overrides
 .dev.vars

@@ -10,7 +10,7 @@ permissions:
   contents: read
 
 env:
-  ANALYTICS_COMMIT: 3a58043a6cc22a8778cc5c1d17cd9e15531d2bb3
+  ANALYTICS_COMMIT: 4bcd8623c46d5929b8901e7cb1942c7f3b7903bc
 
 jobs:
   verify:
@@ -47,7 +47,7 @@ jobs:
             sha256 !== manifest.sha256 ||
             integrity !== manifest.integrity ||
             entry?.version !== manifest.version ||
-            entry?.resolved !== `file:${relativeTarball}` ||
+            entry?.resolved !== manifest.registryTarballUrl ||
             entry?.integrity !== integrity
           ) {
             throw new Error('The committed analytics artifact does not match its declared source and lock identities.');
